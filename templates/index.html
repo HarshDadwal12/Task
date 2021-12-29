@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Quizz</h1>
+    <p>Please Attend the questions in sequential manner enter NA if not known</p>
+    <ol>
+        {% for question in questions %}
+        <li><strong>{{ question }}</strong></li>
+        {% if question.option_two  == 'NA' %}
+        <br>
+        <form method="post" action="/sin_an">
+            {% csrf_token %}
+        <input type="text" name="ans" placeholder="Enter Your Answer!">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+        {% else %}
+        <ol>
+            <li>{{ question.option_one }}</li>
+            <li>{{ question.option_two }}</li>
+
+            {% if question.option_three != 'NA' %}
+            <li>{{ question.option_three }}</li>
+            {% endif %}
+
+            {% if question.option_four != 'NA' %}
+            <li>{{ question.option_four }}</li>  
+            {% endif %}  
+        </ol> <br>
+        <form method="post" action="/mca">
+            {% csrf_token %}
+            <input type="text" name="ansm" placeholder="Enter your Answer!">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+        {% endif %}
+        <br>
+        {% endfor %}
+    </ol>
+</body>
+
+</html>
